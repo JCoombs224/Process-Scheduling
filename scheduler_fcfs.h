@@ -12,12 +12,14 @@
 #define ASSIGN3_SCHEDULER_FCFS_H
 
 #include "scheduler.h"
+#include <vector>
 /**
  * @brief This Scheduler class implements the FCFS scheduling algorithm.
  */
 class SchedulerFCFS : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    vector<PCB> pQueue; // Process queue for FCFS schedular object
+    unsigned int waitingTime; // Global waiting time for FCFS schedular
 
 public:
     /**
