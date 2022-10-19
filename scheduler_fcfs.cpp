@@ -61,6 +61,7 @@ void SchedulerFCFS::print_results()
  */
 void SchedulerFCFS::simulate()
 {
+    cout << pQueue.size();
     for (long unsigned int i = 0; i < pQueue.size(); i++)
     {
         PCB &curr = pQueue.at(i);

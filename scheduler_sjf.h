@@ -12,12 +12,17 @@
 #define ASSIGN3_SCHEDULER_SJF_H
 
 #include "scheduler.h"
+#include <vector>
 
 class SchedulerSJF : public Scheduler {
 private:
     // TODO: add necessary member variables here for your implementation
+    // priority_queue<PCB, vector<PCB>, PCB::compareBurstTime> pQueue;
+    vector<PCB> pQueue;
+    unsigned int waitingTime; // Global waiting time for FCFS schedular
 
 public:
+
     /**
      * @brief Construct a new SchedulerSJF object
      */

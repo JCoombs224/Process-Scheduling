@@ -64,4 +64,12 @@ public:
         cout << "Process " << id << ": " << name << " has priority " << priority << " and burst time "
              << burst_time << endl;
     }
+
+    struct compareBurstTime
+    {
+        bool operator() (const PCB pcb1, const PCB pcb2)
+        {
+            return pcb1.burst_time > pcb2.burst_time;
+        }
+    };
 };
