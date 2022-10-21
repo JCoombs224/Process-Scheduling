@@ -13,10 +13,15 @@
 #define ASSIGN3_SCHEDULER_PRIORITY_H
 
 #include "scheduler.h"
+#include <vector>
+#include <bits/stdc++.h>
 
 class SchedulerPriority : public Scheduler {
 private:
     // TODO: add necessary member variables here for your implementation
+    priority_queue<PCB, vector<PCB>, PCB::comparePriority> pQueue;
+    vector<PCB> completedProcesses;
+    unsigned int waitingTime; // Global waiting time for FCFS schedular
 
 public:
     /**
