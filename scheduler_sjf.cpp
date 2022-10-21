@@ -23,10 +23,7 @@ SchedulerSJF::SchedulerSJF()
 /**
  * @brief Destroy the SchedulerSJF object
  */
-SchedulerSJF::~SchedulerSJF()
-{
-
-}
+SchedulerSJF::~SchedulerSJF() {}
 /**
  * @brief This function is called once before the simulation starts.
  *        It is used to initialize the scheduler.
@@ -36,12 +33,8 @@ void SchedulerSJF::init(std::vector<PCB> &process_list)
 {
     for (long unsigned int i = 0; i < process_list.size(); i++)
     {
-        // Print process information when adding
-        cout << "Process " << i << ": " << process_list.at(i).name << " has priority " << process_list.at(i).priority
-             << " and burst time " << process_list.at(i).burst_time << endl;
-
         // Add process to the queue
-        pQueue.push_back(process_list.at(i));
+        pSjfQueue.push_back(process_list.at(i));
     }
 }
 /**
@@ -50,7 +43,7 @@ void SchedulerSJF::init(std::vector<PCB> &process_list)
  */
 void SchedulerSJF::print_results()
 {
-    cout << pQueue.size() << endl;
+    cout << pSjfQueue.size() << endl;
 }
 
 /**
@@ -59,7 +52,7 @@ void SchedulerSJF::print_results()
  */
 void SchedulerSJF::simulate()
 {
-    cout << pQueue.size() << endl;
+    cout << pSjfQueue.size() << endl;
     /** while (pQueue.empty() == false)
     {
         PCB curr = pQueue.top();
