@@ -31,10 +31,11 @@ SchedulerSJF::~SchedulerSJF() {}
  */
 void SchedulerSJF::init(std::vector<PCB> &process_list)
 {
-    for (long unsigned int i = 0; i < process_list.size(); i++)
+    completedProcesses.reserve(process_list.size());
+    for (auto &curr : process_list)
     {
         // Add process to the queue
-        pSjfQueue.push_back(process_list.at(i));
+        pSjfQueue.push(curr);
     }
 }
 /**
@@ -43,7 +44,10 @@ void SchedulerSJF::init(std::vector<PCB> &process_list)
  */
 void SchedulerSJF::print_results()
 {
-    cout << pSjfQueue.size() << endl;
+    for (auto &curr : completedProcesses)
+    {
+        cout << curr.name << " turn-around time = " << curr.turnaround_time << ", waiting time = " << curr.arrival_time << endl;
+    }
 }
 
 /**
@@ -52,14 +56,15 @@ void SchedulerSJF::print_results()
  */
 void SchedulerSJF::simulate()
 {
-    cout << pSjfQueue.size() << endl;
-    /** while (pQueue.empty() == false)
+    while (pSjfQueue.empty() == false)
     {
-        PCB curr = pQueue.top();
+        PCB curr = pSjfQueue.top();
         cout << "Running Process " << curr.name << " for " << curr.burst_time << " time units\n";
         curr.arrival_time = waitingTime;
         waitingTime += curr.burst_time;
         curr.turnaround_time = waitingTime;
-        pQueue.pop();
-    } */
+        completedProcesses.push_back(curr);
+        pSjfQueue.pop();
+    }
+    sort(completedProcesses.begin(), completedProcesses.end(), PCB::compareId);
 }
