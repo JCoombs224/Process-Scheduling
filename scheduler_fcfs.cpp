@@ -46,9 +46,10 @@ void SchedulerFCFS::print_results()
 {
     for (long unsigned int i = 0; i < pQueue.size(); i++)
     {
-        PCB curr = pQueue.at(i);
+        PCB &curr = pQueue.at(i);
         cout << curr.name << " turn-around time = " << curr.turnaround_time << ", waiting time = " << curr.arrival_time << endl;
     }
+    cout << "Average turn-around time = " << avgTurnAround << ", Average waiting time = " << avgWaitingTime << endl;
 }
 
 /**
@@ -57,13 +58,18 @@ void SchedulerFCFS::print_results()
  */
 void SchedulerFCFS::simulate()
 {
-    cout << pQueue.size();
-    for (long unsigned int i = 0; i < pQueue.size(); i++)
+    unsigned int n = pQueue.size();
+    for (unsigned int i = 0; i < pQueue.size(); i++)
     {
         PCB &curr = pQueue.at(i);
         cout << "Running Process " << curr.name << " for " << curr.burst_time << " time units\n";
         curr.arrival_time = waitingTime;
+        avgWaitingTime += waitingTime;
         waitingTime += curr.burst_time;
         curr.turnaround_time = waitingTime;
+        avgTurnAround += waitingTime;
     }
+
+    avgWaitingTime = avgWaitingTime / n;
+    avgTurnAround = avgTurnAround / n;
 }

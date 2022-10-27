@@ -22,6 +22,8 @@ private:
     priority_queue<PCB, vector<PCB>, PCB::compareBurstTime> pSjfQueue;
     vector<PCB> completedProcesses;
     unsigned int waitingTime; // Global waiting time for FCFS schedular
+    double avgTurnAround = 0;
+    double avgWaitingTime = 0;
 
 public:
     /**
