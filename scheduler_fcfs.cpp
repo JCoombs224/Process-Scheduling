@@ -69,6 +69,7 @@ void SchedulerFCFS::simulate()
         curr.turnaround_time = waitingTime;
         avgTurnAround += waitingTime;
     }
+
     avgWaitingTime = avgWaitingTime / n;
     avgTurnAround = avgTurnAround / n;
 }

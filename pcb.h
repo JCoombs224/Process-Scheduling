@@ -21,7 +21,9 @@ using namespace std;
  *       - burst time
  *       - priority
  *      You may add more fields if you need.
- */
+ *      ADDED FIELD
+ *      - waiting time
+*/
 class PCB
 {
 public:
@@ -37,7 +39,9 @@ public:
     unsigned int arrival_time;
     // The turn-around time of the process
     unsigned int turnaround_time;
-
+    // The waiting time for a proccess (USED IN RR) 
+    unsigned int waiting_time;
+    
     /**
      * @brief Construct a new PCB object
      * @param id: each process has a unique ID
@@ -51,6 +55,8 @@ public:
         this->priority = priority;
         this->burst_time = burst_time;
         this->arrival_time = 0;
+	this->waiting_time = 0;
+	this->turnaround_time =0;
     }
 
     /**
