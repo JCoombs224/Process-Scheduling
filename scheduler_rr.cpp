@@ -18,14 +18,6 @@
 //
 //
 
-/* @brief returns which pcb name (std::string) is larger based on ascii value
- *  This function is used for sorting the PCBs based on names T1, T2, T3,....
- * @param a PCB containing the first string to compare
- * @param a PCB containing the second string to compare
- */
-bool SchedulerRR::compare_name(PCB a, PCB b){
-	return (a.name < b.name);
-}
 
 /**
  * @brief Construct a new SchedulerRR object
@@ -113,6 +105,6 @@ void SchedulerRR:: simulate(){
 		}
 	}
 	// finished simulation, time to sort PCBs
-	std::sort(finished.begin(), finished.end(), compare_name);
+	std::sort(finished.begin(), finished.end(), PCB::compareId);
 
 }

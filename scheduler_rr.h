@@ -18,8 +18,6 @@ private:
  	unsigned int quantum; //time quantum
 	vector<PCB> readyqueue;
 	vector<PCB> finished;
-
-	static bool compare_name(PCB a, PCB b);
 public:
     /**
      * @brief Construct a new SchedulerRR object
