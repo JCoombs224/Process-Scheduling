@@ -13,11 +13,6 @@
 #include <algorithm> // for std::sort to sort the PCBs since they will not complete in order of name
 		     // and we will want to re-organize them based on name  
 		     //
-// TODO: add implementation of SchedulerFCFS constructor, destrcutor and 
-// member functions init, print_results, and simulate here
-//
-//
-
 
 /**
  * @brief Construct a new SchedulerRR object
@@ -51,14 +46,19 @@ void SchedulerRR:: print_results() {
 	for (unsigned int i = 0; i < finished.size(); i++){
 		std::cout<< finished[i].name <<" turn-around time = "<< finished[i].turnaround_time << ", waiting time = " << finished[i].waiting_time<< '\n';
 	}
+	std::cout<< "Average turnaround time : " << average_turnaround_time << " Average waiting time : " << average_waiting_time << '\n'; 
+
 }
 /**
  * @brief This function simulates the scheduling of processes in the ready queue.
  *        It stops when all processes are finished.
  */
 void SchedulerRR:: simulate(){
+	double n  = (double)readyqueue.size();
 	// time elapsed throughout the simulation
 	unsigned int elapsed_time = 0;
+	unsigned int total_w = 0; // total wait time
+	unsigned int total_t = 0; // total turnaround time
 	while( finished.size() < 8){
 		
 		// grab pcb from end, doing this way since its easy to add and remove like this
@@ -73,28 +73,37 @@ void SchedulerRR:: simulate(){
 		// If the burst time is less than or equal to the time quantum,
 		// than the process will run for the burst time. Otherwise, it will run the duration of the time quantum
 		auto running_time = (quantum < curr.burst_time)? quantum: curr.burst_time;
-		
-				// simulate the running of the process
+	
+
+		// simulate the running of the process
 		std::cout<<"Running process " << curr.name << " for " << running_time << " time units.\n";
 	        
 		//update elapsed time
-		elapsed_time+=running_time;
-		
-		// update waiting time for the process about to be ran
-		// all arrival times in this homework is 0: but I am accounting for it regardless
-		// subtracting the current waiting time from the elapsed time before we add,
-		// so that we do not double count any time units 
-		curr.waiting_time += (elapsed_time - curr.waiting_time - curr.arrival_time);
-
-
+		elapsed_time+= running_time;
+	
 		// adjust the new burst time now that the process has ran for some period of time	
 		curr.burst_time = curr.burst_time - running_time;
-		
+	
+		// adjust ran_time
+		curr.ran_time += running_time;	
 		
 		// if the burst time is 0, the process is complete. 
 		if(curr.burst_time == 0){
-			//subtract burst time from waiting time before inserting to finished
-			curr.waiting_time-=curr.burst_time;
+			
+			// turnaround time will equal elapsed time at this moment
+			curr.turnaround_time = elapsed_time;
+	
+			// waiting time = turnaround_time - burst_time 
+			// ( we are using ran_time, because burst time is decreased as we run -
+			// ran_time represents the original burst time value) 
+			curr.waiting_time = curr.turnaround_time - curr.ran_time;
+
+			// add to turnaround_time total for computing the average later
+			total_t+=curr.turnaround_time;
+
+			//add to waiting_time total for computing average later 
+			total_w+= curr.waiting_time;
+
 			// now insert to finished
 			finished.push_back(curr);
 		}else{
@@ -104,6 +113,8 @@ void SchedulerRR:: simulate(){
 			readyqueue.insert(readyqueue.begin(), curr);
 		}
 	}
+	this->average_waiting_time = double(total_w/n);
+	this->average_turnaround_time = double(total_t/n);
 	// finished simulation, time to sort PCBs
 	std::sort(finished.begin(), finished.end(), PCB::compareId);
 

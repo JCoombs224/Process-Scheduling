@@ -18,6 +18,8 @@ private:
  	unsigned int quantum; //time quantum
 	vector<PCB> readyqueue;
 	vector<PCB> finished;
+	double average_waiting_time;
+	double average_turnaround_time;
 public:
     /**
      * @brief Construct a new SchedulerRR object

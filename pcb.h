@@ -41,7 +41,9 @@ public:
     unsigned int turnaround_time;
     // The waiting time for a proccess (USED IN RR) 
     unsigned int waiting_time;
-    
+    // time the process has ran (USED IN RR)
+    unsigned int ran_time;
+
     /**
      * @brief Construct a new PCB object
      * @param id: each process has a unique ID
@@ -57,6 +59,7 @@ public:
         this->arrival_time = 0;
 	this->waiting_time = 0;
 	this->turnaround_time =0;
+	this->ran_time = 0;
     }
 
     /**
