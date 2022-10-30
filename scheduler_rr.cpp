@@ -19,6 +19,10 @@
  */
 SchedulerRR::SchedulerRR(int time_quantum ){
 	quantum = time_quantum;
+	// to pass cppcheck
+	average_waiting_time = 0;
+	average_turnaround_time = 0;
+
 }
 /**
  * @brief Destroy the SchedulerRR object
