@@ -50,7 +50,7 @@ void SchedulerRR:: print_results() {
 	for (unsigned int i = 0; i < finished.size(); i++){
 		std::cout<< finished[i].name <<" turn-around time = "<< finished[i].turnaround_time << ", waiting time = " << finished[i].waiting_time<< '\n';
 	}
-	std::cout<< "Average turnaround time : " << average_turnaround_time << " Average waiting time : " << average_waiting_time << '\n'; 
+	std::cout<< "Average turnaround time = " << average_turnaround_time << " Average waiting time = " << average_waiting_time << '\n'; 
 
 }
 /**
