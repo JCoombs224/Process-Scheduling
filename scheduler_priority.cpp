@@ -52,6 +52,7 @@ void SchedulerPriority::print_results()
     {
         cout << curr.name << " turn-around time = " << curr.turnaround_time << ", waiting time = " << curr.arrival_time << endl;
     }
+    cout << "Average turn-around time = " << avgTurnAround << ", Average waiting time = " << avgWaitingTime << endl;
 }
 
 /**
@@ -60,15 +61,20 @@ void SchedulerPriority::print_results()
  */
 void SchedulerPriority::simulate()
 {
-     while (pQueue.empty() == false)
+    unsigned int n = pQueue.size();
+    while (pQueue.empty() == false)
     {
         PCB curr = pQueue.top();
         cout << "Running Process " << curr.name << " for " << curr.burst_time << " time units\n";
         curr.arrival_time = waitingTime;
+        avgWaitingTime += waitingTime;
         waitingTime += curr.burst_time;
         curr.turnaround_time = waitingTime;
+        avgTurnAround += waitingTime;
         completedProcesses.push_back(curr);
         pQueue.pop();
     }
     sort(completedProcesses.begin(), completedProcesses.end(), PCB::compareId);
+    avgWaitingTime = avgWaitingTime / n;
+    avgTurnAround = avgTurnAround / n;
 }

@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority.h
- * @author ??? (TODO: your name)
+ * @author Jamison Coombs
  * @brief This Scheduler class implements the Priority scheduling algorithm.
  * @version 0.1
  */
@@ -18,11 +18,11 @@
 
 class SchedulerPriority : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
     priority_queue<PCB, vector<PCB>, PCB::comparePriority> pQueue;
     vector<PCB> completedProcesses;
-    unsigned int waitingTime; // Global waiting time for FCFS schedular
-
+    unsigned int waitingTime; // Global waiting time for priority schedular
+    double avgTurnAround = 0;
+    double avgWaitingTime = 0;
 public:
     /**
      * @brief Construct a new SchedulerPriority object
