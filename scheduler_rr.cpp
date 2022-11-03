@@ -63,7 +63,7 @@ void SchedulerRR:: simulate(){
 	unsigned int elapsed_time = 0;
 	unsigned int total_w = 0; // total wait time
 	unsigned int total_t = 0; // total turnaround time
-	while( finished.size() < 8){
+	while( finished.size() < n){
 		
 		// grab pcb from end, doing this way since its easy to add and remove like this
 		// the pcb at the end of the vector named "readyqueue" is effectively the first
