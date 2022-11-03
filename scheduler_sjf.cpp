@@ -10,7 +10,6 @@
 
 #include "scheduler_sjf.h"
 
-// TODO: add implementation of SchedulerFCFS constructor, destrcutor and
 // member functions init, print_results, and simulate here
 
 /**
@@ -35,7 +34,7 @@ void SchedulerSJF::init(std::vector<PCB> &process_list)
     for (auto &curr : process_list)
     {
         // Add process to the queue
-        pSjfQueue.push(curr);
+        sjfQueue.push(curr);
     }
 }
 /**
@@ -46,7 +45,7 @@ void SchedulerSJF::print_results()
 {
     for (auto &curr : completedProcesses)
     {
-        cout << curr.name << " turn-around time = " << curr.turnaround_time << ", waiting time = " << curr.arrival_time << endl;
+        cout << curr.name << " turn-around time = " << curr.turnaround_time << ", waiting time = " << curr.waiting_time << endl;
     }
     cout << "Average turn-around time = " << avgTurnAround << ", Average waiting time = " << avgWaitingTime << endl;
 }
@@ -57,20 +56,24 @@ void SchedulerSJF::print_results()
  */
 void SchedulerSJF::simulate()
 {
-    unsigned int n = pSjfQueue.size();
-    while (pSjfQueue.empty() == false)
+    unsigned int n = sjfQueue.size();
+    while (sjfQueue.empty() == false)
     {
-        PCB curr = pSjfQueue.top();
+        PCB curr = sjfQueue.top(); // set curr to the top element in the queue
         cout << "Running Process " << curr.name << " for " << curr.burst_time << " time units\n";
-        curr.arrival_time = waitingTime;
+        // calculate waiting times and turnaround times and add those to the averages
+        curr.waiting_time = waitingTime;
         avgWaitingTime += waitingTime;
         waitingTime += curr.burst_time;
         curr.turnaround_time = waitingTime;
         avgTurnAround += waitingTime;
-        completedProcesses.push_back(curr);
-        pSjfQueue.pop();
+
+        completedProcesses.push_back(curr); // Add pcb to the completed processes
+        sjfQueue.pop(); // pop the waiting queue
     }
+    // When done simulating sort the completed process list from lowest to highest ID
     sort(completedProcesses.begin(), completedProcesses.end(), PCB::compareId);
+    // calculate the average waiting time and turnaround time
     avgWaitingTime = avgWaitingTime / n;
     avgTurnAround = avgTurnAround / n;
 }

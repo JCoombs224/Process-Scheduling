@@ -23,7 +23,7 @@ using namespace std;
  *      You may add more fields if you need.
  *      ADDED FIELD
  *      - waiting time
-*/
+ */
 class PCB
 {
 public:
@@ -39,7 +39,7 @@ public:
     unsigned int arrival_time;
     // The turn-around time of the process
     unsigned int turnaround_time;
-    // The waiting time for a proccess (USED IN RR) 
+    // The waiting time for a proccess (USED IN RR)
     unsigned int waiting_time;
     // time the process has ran (USED IN RR)
     unsigned int ran_time;
@@ -57,9 +57,9 @@ public:
         this->priority = priority;
         this->burst_time = burst_time;
         this->arrival_time = 0;
-	this->waiting_time = 0;
-	this->turnaround_time =0;
-	this->ran_time = 0;
+        this->waiting_time = 0;
+        this->turnaround_time = 0;
+        this->ran_time = 0;
     }
 
     /**

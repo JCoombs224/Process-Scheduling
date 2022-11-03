@@ -18,10 +18,9 @@
 class SchedulerSJF : public Scheduler
 {
 private:
-    // TODO: add necessary member variables here for your implementation
-    priority_queue<PCB, vector<PCB>, PCB::compareBurstTime> pSjfQueue;
+    priority_queue<PCB, vector<PCB>, PCB::compareBurstTime> sjfQueue;
     vector<PCB> completedProcesses;
-    unsigned int waitingTime; // Global waiting time for FCFS schedular
+    unsigned int waitingTime; // Global waiting time for SJF scheduler
     double avgTurnAround = 0;
     double avgWaitingTime = 0;
 
