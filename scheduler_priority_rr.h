@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority_rr.h
- * @author ??? (TODO: your name)
+ * @author Jordan Aquino & Jamison Coombs
  * @brief This Scheduler class implements the Priority RR scheduling algorithm.
  * @version 0.1
  */
@@ -12,11 +12,17 @@
 #define ASSIGN3_SCHEDULER_PRIORITY_RR_H
 
 #include "scheduler.h"
+#include <vector>
+#include <bits/stdc++.h>
+
 
 class SchedulerPriorityRR : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
-
+	priority_queue<PCB, vector<PCB>, PCB::comparePriorityOnly> readyqueue;
+	std::vector<PCB> finished;
+	unsigned int quantum;
+	double average_waiting_time = 0;
+	double average_turnaround_time = 0;
 public:
     /**
      * @brief Construct a new SchedulerPriority object

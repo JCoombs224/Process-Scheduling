@@ -94,7 +94,7 @@ public:
     };
 
     /**
-     * @brief Compare the burst times and if they are the same return the process that arrived first.
+     * @brief Compare the priority and if they are the same return the process that arrived first.
      *
      */
     struct comparePriority
@@ -108,6 +108,18 @@ public:
             return pcb1.priority < pcb2.priority;
         }
     };
+    /**
+     * @brief Compare the priority only.
+     *
+     */
+    struct comparePriorityOnly
+    {
+        bool operator()(const PCB pcb1, const PCB pcb2)
+        {
+                       return pcb1.priority < pcb2.priority;
+        }
+    };
+
 
     /**
      * @brief Return the process that arrived first based on the lower id.
