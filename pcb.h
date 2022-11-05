@@ -116,7 +116,7 @@ public:
     {
         bool operator()(const PCB pcb1, const PCB pcb2)
         {
-                       return pcb1.priority < pcb2.priority;
+                 return pcb1.priority < pcb2.priority;
         }
     };
 
@@ -129,4 +129,7 @@ public:
     {
         return pcb1.id < pcb2.id;
     }
+
+    
+
 };
