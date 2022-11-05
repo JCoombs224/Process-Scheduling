@@ -108,31 +108,29 @@ public:
             return pcb1.priority < pcb2.priority;
         }
     };
+    /**
+     * @brief Compares the priority for the priority round-robin scheduler. And returns the pcb with the 
+     *        highest priority. If two pcbs have the same priority then it will compare the run-times and
+     *        return the pcb with the least run time. If the run times are the same then it will return the
+     *        pcb with the lowest ID value.
+     */
     struct priorityRrComparator
     {
         bool operator()(const PCB pcb1, const PCB pcb2)
         {
+            // First check if the priorities of the 2 pcbs are the same
             if (pcb1.priority == pcb2.priority)
             {
+                // If the pcbs have the same amount of time they have been ran then compare the IDs
                 if(pcb1.ran_time == pcb2.ran_time)
                     return !compareId(pcb1, pcb2);
+                // Otherwise return the pcb with the lowest run time.
                 return pcb1.ran_time > pcb2.ran_time;
             }
+            // If the priorities are different return teh pcb with the highest priority
             return pcb1.priority < pcb2.priority;
         }
     };
-    /**
-     * @brief Compare the priority only.
-     *
-     */
-    struct comparePriorityOnly
-    {
-        bool operator()(const PCB pcb1, const PCB pcb2)
-        {
-            return pcb1.priority < pcb2.priority;
-        }
-    };
-
 
     /**
      * @brief Return the process that arrived first based on the lower id.
