@@ -18,7 +18,7 @@
 
 class SchedulerPriorityRR : public Scheduler {
 private:
-	priority_queue<PCB, vector<PCB>, PCB::comparePriorityOnly> readyqueue;
+	priority_queue<PCB, vector<PCB>, PCB::priorityRrComparator> readyqueue;
 	std::vector<PCB> finished;
 	unsigned int quantum;
 	double average_waiting_time = 0;

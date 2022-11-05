@@ -108,6 +108,19 @@ public:
             return pcb1.priority < pcb2.priority;
         }
     };
+    struct priorityRrComparator
+    {
+        bool operator()(const PCB pcb1, const PCB pcb2)
+        {
+            if (pcb1.priority == pcb2.priority)
+            {
+                if(pcb1.ran_time == pcb2.ran_time)
+                    return !compareId(pcb1, pcb2);
+                return pcb1.ran_time > pcb2.ran_time;
+            }
+            return pcb1.priority < pcb2.priority;
+        }
+    };
     /**
      * @brief Compare the priority only.
      *
@@ -116,7 +129,7 @@ public:
     {
         bool operator()(const PCB pcb1, const PCB pcb2)
         {
-                 return pcb1.priority < pcb2.priority;
+            return pcb1.priority < pcb2.priority;
         }
     };
 

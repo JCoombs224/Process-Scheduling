@@ -54,7 +54,7 @@ void SchedulerPriorityRR:: print_results() {
 	for (unsigned int i = 0; i < finished.size(); i++){
 		std::cout<< finished[i].name <<" turn-around time = "<< finished[i].turnaround_time << ", waiting time = " << finished[i].waiting_time<< '\n';
 	}
-	std::cout<< "Average turnaround time = " << average_turnaround_time << " Average waiting time = " << average_waiting_time << '\n'; 
+	std::cout<< "Average turnaround time = " << average_turnaround_time << ", Average waiting time = " << average_waiting_time << '\n'; 
 
 }
 /**
@@ -67,9 +67,6 @@ void SchedulerPriorityRR:: simulate(){
 	unsigned int running_time, elapsed_time = 0;
 	unsigned int total_w = 0; // total wait time
 	unsigned int total_t = 0; // total turnaround time
-	unsigned int prev = INT_MAX;
-	std::vector<PCB> temp; // vector for holding temporary vectors
-	temp.reserve(n);
 	while( finished.size() < n){
 
 
@@ -84,31 +81,15 @@ void SchedulerPriorityRR:: simulate(){
 			// if so, the current process will run its entire burst time
 			running_time = curr.burst_time;
 		}else{
-			if(curr.id > readyqueue.top().id && ( prev  == curr.id )){
-				while ( curr.id > readyqueue.top().id){
-					temp.push_back(curr);
-					curr = readyqueue.top();
-					readyqueue.pop();
-
-				} 
-				std::sort(temp.begin(), temp.end(), PCB::compareId);
-			}			
-			while(!temp.empty()){
-				readyqueue.push(temp.front());
-				temp.pop_back();
-
-			}
 			// Otherwise it will be traditional RR running time like so  :
 			// If the burst time is less than or equal to the time quantum,
 			// than the process will run for the burst time. Otherwise, it will run the duration of the time quantum
 			running_time = (quantum < curr.burst_time)? quantum: curr.burst_time;
 		}//end of else
 
-		prev = curr.id;
-
 		// simulate the running of the process
-		std::cout<<"Running process " << curr.name << " for " << running_time << " time units\n";
-
+		std::cout<<"Running Process " << curr.name << " for " << running_time << " time units\n";
+	        
 		//update elapsed time
 		elapsed_time+= running_time;
 
